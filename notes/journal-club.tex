@@ -1,0 +1,118 @@
+\documentclass{article}
+
+\begin{document}
+
+Multi-object tracking.
+
+Formulating the problem
+
+\begin{itemize}
+  \item Goal: track objects in a video
+  \item Input: observations per frame $(O_i)$
+    \begin{itemize}
+      \item Image
+    \end{itemize}
+  \item Output: State per object $(S_i)$
+    \begin{itemize}
+      \item Location, speed, color
+    \end{itemize}
+  \item Formally, maximize $P(S_{1:t} | O_{1:t})$.
+    \begin{itemize}
+      \item Find optimal sequence of states
+    \end{itemize}
+  \item Evaluate on false positives, false negatives, switches
+  \item Upstream task for navigation
+\end{itemize}
+
+Video of tracking.  Idea is that you want to maintain some sort of identity for each object.
+
+Types of trackers
+\begin{itemize}
+  \item Online vs. offline: can we see the future?  Note: this is unrelated to the notion of 
+  \item Detection based vs. detection free: what is part of tracking?
+  \item 2D vs. 3D: how do we model the world?
+\end{itemize}
+
+Q: (Hugh) - What is the difference between online vs. offline tracking?
+
+Key operations:
+
+\begin{itemize}
+  \item Predict: $P(S_{t+1} | S_t)$
+  \item Update: $P(S_t | O_t)$
+  \item Initiation: When have we seen a new object?
+  \item Termination: When has an object left?
+\end{itemize}
+
+Predict:
+\begin{itemize}
+  \item Want to model state of object 
+  \item Track position, velocity, acceleration, appearance and predict future states
+  \item Filters (ie Kalman, particle) allow tracking with uncertainty
+\end{itemize}
+
+Example: Uber GPS tracking.
+
+Update:
+\begin{itemize}
+  \item Update motion models given object observation
+  \item Which object is which?
+  \item Worker assignment problem with Hungarian algorithm (well understood with cubic runtime).
+  \item And dummy node for unmatched detections and tracks
+\end{itemize}
+
+Cost matrices
+\begin{itemize}
+  \item How good is a track-detection pair?
+  \item IOU of states
+  \item Visual appearance similarity
+    \begin{itemize}
+      \item Color histogram: well studied but loses spatial info
+      \item Optical flow: powerful but suceptible to occlusion
+      \item Learned approach: embed into some vector space
+    \end{itemize}
+  \item How do we combine?
+    \begin{itemize}
+      \item Concatenate, sum, product, cascade, learned
+    \end{itemize}
+\end{itemize}
+
+Initiation:
+\begin{itemize}
+  \item High recall: look for $n$ matches in a row before confirming object
+  \item High precision detector: always initiate on detection
+  \item Estimate start state (optical flow with velocity)
+\end{itemize}
+
+Termination:
+\begin{itemize}
+  \item High recall: miss for 1 frame
+  \item High precision: miss for $n$ frames
+  \item State based: uncertainty limit based approach
+\end{itemize}
+
+Open ended questions:
+\begin{itemize}
+  \item Hard constraints: cars can't exist in a wall
+  \item Social cues: objects respond to each other
+  \item Occlusion handling: how are states and cost matrices affected?
+\end{itemize}
+
+Tracking on JR
+\begin{itemize}
+  \item Cute robot
+  \item 2D stereo camera, 3D LIDAR data
+  \item Drives around people and tries not to hit them
+\end{itemize}
+
+References:
+\begin{itemize}
+  \item Probabilistic robotics
+  \item The Gradient's 3D perception / vision article
+\end{itemize}
+
+Slides
+
+Potential work
+
+\end{document}
