@@ -1,9 +1,9 @@
-## The Gradient's Journal Club
-
-Hugh Zhang, Andrey Kurenkov, Adithya Ganesh.
+## The Gradient and Stanford ACM's Journal Club
 
 Placeholder for paper discussions, happening weekly at Gates.
 
 ## Schedule
 
-Week 1: Meta-analysis and ["Troubling Trends in Machine Learning Scholarship"](https://arxiv.org/pdf/1807.03341.pdf) [Adi].
+Week 1: Multi-object tracking [Mihir].
+
+Week 2: Meta-analysis and ["Troubling Trends in Machine Learning Scholarship"](https://arxiv.org/pdf/1807.03341.pdf) [Adi].
